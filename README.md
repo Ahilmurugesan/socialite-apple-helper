@@ -45,3 +45,6 @@ To manually refresh the Client Secret, please run the following command
 ```
 php artisan socialite:apple --refresh
 ```
+
+## 3. Demo Repo
+* [Demo Repo](https://github.com/VonecTechnologies/socialite-apple-sample/)
