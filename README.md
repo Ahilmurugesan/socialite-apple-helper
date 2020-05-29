@@ -1,8 +1,8 @@
 <h1 align="center">Socialite - Apple Helper</h1>
 <p align="center">
-<a href="https://packagist.org/packages/ahilmurugesan/socialite-apple-helper"><img src="https://poser.pugx.org/ahilmurugesan/socialite-apple/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/ahilmurugesan/socialite-apple-helper"><img src="https://poser.pugx.org/ahilmurugesan/socialite-apple/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/ahilmurugesan/socialite-apple-helper"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+<a href="https://packagist.org/packages/ahilmurugesan/socialite-apple-helper"><img src="https://poser.pugx.org/ahilmurugesan/socialite-apple-helper/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/ahilmurugesan/socialite-apple-helper"><img src="https://poser.pugx.org/ahilmurugesan/socialite-apple-helper/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/ahilmurugesan/socialite-apple-helper"><img src="https://poser.pugx.org/ahilmurugesan/socialite-apple-helper/license.svg" alt="License"></a>
 </p>
 
 ---
