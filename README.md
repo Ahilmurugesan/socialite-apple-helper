@@ -24,10 +24,7 @@ To set up the required environment variables you can use the following artisan c
 php artisan socialite:apple
 ```
 
-Please watch the following video to understand the flow to obtain the required Sign in with Apple credentials.
-
-<a href="https://youtu.be/rgHL2JBxjJ0">![siwa-video-cover](https://user-images.githubusercontent.com/648370/80411038-2653b900-88e9-11ea-953b-d34a2272000a.png)</a>
-The command will prompt you the required values which can be acquired by following the [setup video](https://youtu.be/rgHL2JBxjJ0).  You need to provide the following keys.
+The command will prompt you the required values.You need to provide the following keys.
  1. Team ID
  2. Key ID
  3. Client ID
