@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahilan\Apple\console\commands;
+namespace Ahilan\Apple\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
