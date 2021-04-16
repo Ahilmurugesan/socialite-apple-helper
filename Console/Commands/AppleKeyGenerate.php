@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 
@@ -118,7 +119,7 @@ class AppleKeyGenerate extends Command
             $now   = new DateTimeImmutable();
 
             try{
-                $config = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($privateKeyFile));
+                $config = Configuration::forSymmetricSigner(new Sha256(new MultibyteStringConverter()), InMemory::plainText($privateKeyFile));
 
                 $now   = new DateTimeImmutable();
 
