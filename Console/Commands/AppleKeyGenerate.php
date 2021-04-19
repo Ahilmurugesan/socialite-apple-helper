@@ -2,13 +2,15 @@
 
 namespace Ahilan\Apple\Console\Commands;
 
+use DateTimeImmutable;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
-use Lcobucci\JWT\Signer\Key;
 
 class AppleKeyGenerate extends Command
 {
@@ -114,21 +116,32 @@ class AppleKeyGenerate extends Command
 
         if($exists){
             $privateKeyFile = Storage::disk('local')->get(config('services.apple.auth_key'));
+            $now   = new DateTimeImmutable();
 
             try{
-                $signer = new Sha256();
-                $privateKey = new Key($privateKeyFile);
-                $token = (new Builder())->issuedBy(config('services.apple.team_id'))// Configures the issuer (iss claim)
-                ->permittedFor("https://appleid.apple.com")// Configures the audience (aud claim)
-                ->issuedAt(time())// Configures the time that the token was issue (iat claim)
-                ->expiresAt(time() + 86400 * config('services.apple.refresh_token_interval_days'))// Configures the expiration time of the token (exp claim)
-                ->relatedTo(config('services.apple.client_id')) //Configures the subject
-                ->withHeader('kid', config('services.apple.key_id'))
+                $config = Configuration::forSymmetricSigner(new Sha256(new MultibyteStringConverter()), InMemory::plainText($privateKeyFile));
+
+                $now   = new DateTimeImmutable();
+
+                $token = $config->builder()
+                    // Configures the issuer (iss claim)
+                    ->issuedBy(config('services.apple.team_id'))
+                    // Configures the audience (aud claim)
+                    ->permittedFor('https://appleid.apple.com')
+                    // Configures the time that the token was issue (iat claim)
+                    ->issuedAt($now)
+                    // Configures the expiration time of the token (exp claim)
+                    ->expiresAt($now->modify("+" . config('services.apple.refresh_token_interval_days') . " day"))
+                    //Configures the subject
+                    ->relatedTo(config('services.apple.client_id'))
+                    ->withHeader('kid', config('services.apple.key_id'))
                     ->withHeader('type', 'JWT')
                     ->withHeader('alg', 'ES256')
-                    ->getToken($signer, $privateKey); // Retrieves the generated token
+                    // Builds a new token
+                    ->getToken($config->signer(), $config->signingKey());
 
-                $client_secret = $token->__toString();
+
+                $client_secret = $token->toString();
 
                 if(!$refresh)
                 {
